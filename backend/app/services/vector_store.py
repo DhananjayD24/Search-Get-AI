@@ -20,12 +20,3 @@ class VectorStore:
     def get_vector_store(self):
         return self.vector_store
     
-    def retrieve(self, question, k=3):
-        """
-        Retrieves the top-k most relevant chunks.
-        """
-
-        return self.vector_store.similarity_search(
-            query=question,
-            k=k
-        )

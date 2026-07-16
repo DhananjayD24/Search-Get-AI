@@ -12,3 +12,5 @@ langgraph
 sentence-transformers
 faiss-cpu
 pypdf
+
+langchain-google-genai

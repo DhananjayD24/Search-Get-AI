@@ -1,7 +1,11 @@
+from services.retriever import Retriever
 from services.pdf_loader import PDFLoader
 from services.chunker import TextChunker
 from services.embedding import EmbeddingModel
 from services.vector_store import VectorStore
+from services.formatter import ContextFormatter
+from services.llm import LLM
+from services.prompt import RAG_PROMPT
 
 
 def main():
@@ -17,27 +21,46 @@ def main():
     # Load Embedding Model
     embedding_model = EmbeddingModel().get_model()
 
-    # Create FAISS
+    # Create FAISS Vector Store
     vector_store = VectorStore(embedding_model)
     db = vector_store.create_vector_store(chunks)
 
-    question = input("Ask Question: ")
+    # Create Retriever
+    retriever = Retriever(db)
 
-    results = vector_store.retrieve(question)
+    # Load LLM
+    llm = LLM().get_llm()
 
-    print("\nRetrieved Chunks\n")
+    # Create LCEL Chain
+    chain = RAG_PROMPT | llm
 
-    for i, doc in enumerate(results, start=1):
+    while True:
 
-        print(f"Chunk {i}")
+        question = input("\nAsk Question (type 'exit' to quit): ")
 
-        print("-"*60)
+        if question.lower() == "exit":
+            break
 
-        print(doc.page_content)
+        # Retrieve relevant chunks
+        docs = retriever.retrieve(question)
 
-        print("\nMetadata:", doc.metadata)
+        # Format retrieved context
+        context = ContextFormatter.format(docs)
 
-        print("="*60)
+        # Invoke LLM
+        response = chain.invoke(
+            {
+                "question": question,
+                "context": context,
+            }
+        )
+
+        print("\nAnswer:")
+        print(response.answer)
+
+        print("\nPages:")
+        print(response.pages)
+        print("-" * 60)
 
 
 if __name__ == "__main__":
