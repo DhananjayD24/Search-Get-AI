@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 from langchain_groq import ChatGroq
-from services.schema import RAGResponse
+from app.services.schema import RAGResponse
 
 load_dotenv()
 

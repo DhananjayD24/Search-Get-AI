@@ -9,3 +9,6 @@ class RAGResponse(BaseModel):
     pages: list[int] = Field(
         description="Page numbers from the provided context that support the answer."
     )
+
+class ChatRequest(BaseModel):
+    question: str
