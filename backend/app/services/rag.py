@@ -25,10 +25,14 @@ class RAGPipeline:
         # Load PDF
         loader = PDFLoader(pdf_path)
         documents = loader.load()
+        if not documents:
+            raise ValueError("This PDF has no readable pages.")
 
         # Chunk PDF
         chunker = TextChunker()
         chunks = chunker.split(documents)
+        if not chunks:
+            raise ValueError("No readable text was found in this PDF.")
 
         # Create Vector Store
         vector_store = VectorStore(self.embedding_model)
@@ -40,7 +44,7 @@ class RAGPipeline:
     def ask(self, question: str):
 
         if self.retriever is None:
-            raise Exception("No PDF has been uploaded.")
+            raise ValueError("Upload a PDF before asking a question.")
 
         # Retrieve relevant chunks
         docs = self.retriever.retrieve(question)
