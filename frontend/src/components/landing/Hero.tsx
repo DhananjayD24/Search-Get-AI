@@ -3,8 +3,8 @@ import { ArrowRight, FileText, MessageSquareText, Sparkles } from "lucide-react"
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-white px-5 pb-18 pt-32 sm:px-6 sm:pb-24 sm:pt-40">
-      <div className="absolute inset-x-0 top-8 -z-0 mx-auto h-72 max-w-3xl rounded-full bg-indigo-100/60 blur-3xl" />
+      <section className="relative overflow-hidden bg-linear-to-b from-slate-50 via-white to-white px-5 pb-18 pt-32 sm:px-6 sm:pb-24 sm:pt-40">
+      <div className="absolute inset-x-0 top-8 z-0 mx-auto h-72 max-w-3xl rounded-full bg-indigo-100/60 blur-3xl" />
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white px-3 py-1.5 text-sm font-medium text-indigo-700 shadow-sm"><Sparkles size={14} /> AI-powered document search</div>
         <h1 className="mx-auto mt-6 max-w-3xl text-4xl font-bold tracking-tight text-slate-950 sm:text-6xl">
