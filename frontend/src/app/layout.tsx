@@ -13,8 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Search & Get AI",
-  description: "Upload a PDF and ask questions about it.",
+  title: {
+    default: "Search & Get AI | Chat with your PDFs",
+    template: "%s | Search & Get AI",
+  },
+  description: "Upload PDFs, search their contents, and get AI-powered answers with page references.",
+  
 };
 
 export default function RootLayout({
