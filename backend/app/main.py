@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from h11 import Request
 
 from app.routers.chat import router
 
@@ -24,5 +25,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.middleware("http")
+async def debug_requests(request: Request, call_next):
+    print(f"REQUEST: {request.method} {request.url.path}")
+    response = await call_next(request)
+    print(f"RESPONSE: {response.status_code}")
+    return response
 
 app.include_router(router, prefix="/api", tags=["Chat"])
