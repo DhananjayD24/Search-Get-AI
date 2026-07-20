@@ -23,24 +23,28 @@ class RAGPipeline:
     def load_pdf(self, pdf_path: str):
 
         # Load PDF
+        print("1.loading PDF...")
         loader = PDFLoader(pdf_path)
         documents = loader.load()
         if not documents:
             raise ValueError("This PDF has no readable pages.")
 
         # Chunk PDF
+        print("2.chunking PDF...")
         chunker = TextChunker()
         chunks = chunker.split(documents)
         if not chunks:
             raise ValueError("No readable text was found in this PDF.")
 
         # Create Vector Store
+        print("3.creating vector store...")
         vector_store = VectorStore(self.embedding_model)
         db = vector_store.create_vector_store(chunks)
 
         # Create Retriever
+        print("4.creating retriever...")
         self.retriever = Retriever(db)
-
+        print("finished")
     def ask(self, question: str):
 
         if self.retriever is None:
