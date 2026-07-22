@@ -16,7 +16,7 @@ Search & Get AI is a full-stack Retrieval-Augmented Generation (RAG) app for que
 PDF upload
   -> PyPDFLoader
   -> Recursive text chunks (1,000 characters; 200 overlap)
-  -> Jina Embeddings v3
+  -> Hugging Face embeddings (`BAAI/bge-small-en-v1.5`)
   -> in-memory FAISS vector index
   -> top 3 relevant chunks
   -> Groq / Llama 3.3 70B
@@ -32,14 +32,13 @@ The vector index is stored only in backend memory. Uploading a new PDF replaces 
 | Frontend | Next.js 16, React 19, TypeScript, Tailwind CSS, Axios, Lucide |
 | Backend | FastAPI, Uvicorn, Pydantic |
 | RAG | LangChain, PyPDFLoader, FAISS |
-| Embeddings | Jina AI (`jina-embeddings-v3`) |
+| Embeddings | Hugging Face (`BAAI/bge-small-en-v1.5`) |
 | LLM | Groq (`llama-3.3-70b-versatile`) |
 
 ## Prerequisites
 
 - Node.js 20+
 - Python 3.11
-- A [Jina AI API key](https://jina.ai/embeddings/)
 - A [Groq API key](https://console.groq.com/)
 
 ## Setup
@@ -56,7 +55,6 @@ pip install -r requirements.txt
 Create `backend/.env`:
 
 ```env
-JINA_API_KEY=your_jina_api_key
 GROQ_API_KEY=your_groq_api_key
 ```
 
